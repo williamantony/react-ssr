@@ -1,13 +1,16 @@
 {
-  "name": "ssrt",
+  "name": "react-ssr",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack && NODE_ENV=development node server.js"
+    "start": "NODE_ENV=development webpack && NODE_ENV=development node ./server.js",
+    "clean": "rm -f ./server.js && rm -f ./build/* && rm -f ./npm-debug.log",
+    "start:build": "NODE_ENV=development webpack -w",
+    "start:server": "NODE_ENV=development node ./server.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
@@ -15,7 +18,11 @@
     "isomorphic-fetch": "^2.2.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-router-dom": "^4.3.1"
+    "react-redux": "^6.0.0",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "serialize-javascript": "^1.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
@@ -25,14 +32,18 @@
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.4.2",
     "babel-loader": "^8.0.4",
+    "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.1",
     "express": "^4.16.4",
     "extract-text-webpack-plugin": "^4.0.0-alpha.0",
     "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "postcss-loader": "^3.0.0",
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2",
+    "webpack-dev-middleware": "^3.4.0",
     "webpack-dev-server": "^3.1.10",
+    "webpack-hot-middleware": "^2.24.3",
     "webpack-node-externals": "^1.7.2"
   }
 }

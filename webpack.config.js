@@ -5,11 +5,11 @@ const autoprefixer = require('autoprefixer');
 const nodeExternals = require('webpack-node-externals');
 
 const browserConfig = {
-  mode: 'production',
+  mode: 'development',
   entry: './src/browser/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'public'),
   },
   module: {
     rules: [
@@ -54,27 +54,29 @@ const browserConfig = {
         ],
         loader: 'file-loader',
         options: {
-          name: "build/media/[name].[ext]",
-          publicPath: url => url.replace(/build/, ''),
+          name: "public/media/[name].[ext]",
+          publicPath: url => url.replace(/public/, ''),
         }
       }
     ]
   },
   plugins: [
     new ExtractTextPlugin({
-      filename: 'build/css/[name].css',
+      filename: 'public/css/[name].css',
     }),
     new webpack.BannerPlugin({
       banner: '__isBrowser__ = true;',
       raw: true,
       include: /\.js$/
     }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
   // devtool: "cheap-module-source-map",
   devServer: {
-    contentBase: __dirname + '/build',
+    contentBase: path.join(__dirname, 'public'),
     compress: true,
-    port: 9000
+    port: 9000,
+    hot: true,
   },
 };
 
@@ -118,8 +120,8 @@ const serverConfig = {
         ],
         loader: 'file-loader',
         options: {
-          name: 'build/media/[name].[ext]',
-          publicPath: url => url.replace(/build/, ''),
+          name: 'public/media/[name].[ext]',
+          publicPath: url => url.replace(/public/, ''),
           emit: false,
         },
       }
